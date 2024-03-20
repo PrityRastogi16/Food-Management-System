@@ -1,43 +1,35 @@
 const mongoose = require("mongoose");
 
-const menuItems = new Schema({
+const menuItems = mongoose.Schema({
     name: {
-        type: String,
-        required: true
+        type: String
       },
       description: String,
       price: {
-        type: Number,
-        required: true
+        type: Number
       },
       image: String
     });
 
 const restaurantSchema = mongoose.Schema({
     name: {
-        type: String,
-        required: true
+        type: String
       },
       address: {
         street: {
-          type: String,
-          required: true
+          type: String
         },
         city: {
-          type: String,
-          required: true
+          type: String
         },
         state: {
-          type: String,
-          required: true
+          type: String
         },
         country: {
-          type: String,
-          required: true
+          type: String
         },
         zip: {
-          type: String,
-          required: true
+          type: String
         }
       },
       menu: [menuItems]
@@ -46,5 +38,5 @@ const restaurantSchema = mongoose.Schema({
 const RestaurantModel = mongoose.model('Restaurant', restaurantSchema);
 
 module.exports={
-    restaurantSchema
+    RestaurantModel
 }

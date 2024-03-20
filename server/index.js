@@ -1,11 +1,13 @@
 const express = require("express");
 const connection = require("./dbConnect");
+const {userRouter} = require("./routes/userRoute")
 const app = express();
+app.use(express.json());
 
 app.get("/",(req,res)=>{
     res.json("Working Fine");
 })
-
+ app.use("/user", userRouter);
 
 app.listen("2002",async(req,res)=>{
    try{
