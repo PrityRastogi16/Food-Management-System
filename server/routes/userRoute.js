@@ -47,6 +47,29 @@ userRouter.post("/login",async(req,res)=>{
     }
 })
 
+// Password Reset
+userRouter.put("/:id/reset", async(req,res)=>{
+    try{
+      const userId = req.params.id;
+      const {currentPassword, newPassword} = req.body;
+      const user = await UserModel.findById(userId);
+      if(!user){
+        res.status(200).json({msg:"User Not Found !"})
+      }
+      const isPasswordCorrect = await bcrypt.compare(currentPassword,user.password);
+      if(!isPasswordCorrect){
+        res.status(200).json({msg:"Password Incorrect !"})
+      }
+      const hashNewPassword = await bcrypt.hash(newPassword,5);
+      user.password = hashNewPassword;
+      await user.save();
+      res.json({msg:"Password Reset Successfully"});
+    }
+    catch(err){
+        res.status(401).send({"error":err}) 
+    }
+})
+
 module.exports = {
     userRouter
 }
