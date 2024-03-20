@@ -2,6 +2,7 @@ const express = require("express");
 const connection = require("./dbConnect");
 const {userRouter} = require("./routes/userRoute")
 const {restaurantRouter} = require("./routes/restaurantRoute");
+const {orderRoute} = require("./routes/orderRoutes");
 const app = express();
 app.use(express.json());
 
@@ -10,6 +11,7 @@ app.get("/",(req,res)=>{
 })
  app.use("/user", userRouter);
  app.use("/restaurant",restaurantRouter);
+ app.use("/order", orderRoute);
 
 app.listen("2002",async(req,res)=>{
    try{
